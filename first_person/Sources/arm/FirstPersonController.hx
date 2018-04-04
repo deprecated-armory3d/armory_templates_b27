@@ -80,7 +80,7 @@ class FirstPersonController extends CameraController {
 		if (mouse.moved) {
 			var d = mouse.movementY / 250;
 			if (angle + d > 1.5) return;
-			if (angle + d < -0.25) return;
+			if (angle + d < -0.37) return;
 			angle += d;
 			nextFrameRot = -mouse.movementY / 250 * rotationSpeed;
 		}
