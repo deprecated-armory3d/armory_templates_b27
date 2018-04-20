@@ -85,6 +85,9 @@ def draw_props(layout):
     row.prop(rpdat, "rp_antialiasing", expand=True)
     box.prop(rpdat, "rp_supersampling")
     box.prop(rpdat, 'arm_rp_resolution')
+    if rpdat.arm_rp_resolution == 'Custom':
+        box.prop(rpdat, 'arm_rp_resolution_size')
+        box.prop(rpdat, 'arm_rp_resolution_filter')
     box.separator()
     box.prop(rpdat, "rp_bloom")
     col = box.column()
@@ -341,3 +344,6 @@ def make_rpath():
             assets.add_khafile_def('rp_bloom')
             assets.add_shader_pass('bloom_pass')
             assets.add_shader_pass('blur_gaus_pass')
+
+        if rpdat.arm_rp_resolution == 'Custom':
+            assets.add_khafile_def('rp_resolution_filter={0}'.format(rpdat.arm_rp_resolution_filter))
