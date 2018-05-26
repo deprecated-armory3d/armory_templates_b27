@@ -201,6 +201,7 @@ def make_mesh_pass(rpass):
     frag.write('float roughness;')
     frag.write('float metallic;')
     frag.write('float occlusion;')
+    frag.write('float specular;')
     arm_discard = mat_state.material.arm_discard
     if arm_discard:
         frag.write('float opacity;')
