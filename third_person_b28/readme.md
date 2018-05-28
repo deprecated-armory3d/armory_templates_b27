@@ -1,0 +1,1 @@
+third_person template for Armory + Blender 2.8. It is identical to the standard third_person template apart from two changes: lamp intensity is set and collection with the projectile object is made visible so it gets picked up by exporter. Highly experimental!
