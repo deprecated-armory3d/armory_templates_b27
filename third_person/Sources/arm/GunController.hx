@@ -40,13 +40,6 @@ class GunController extends Trait {
 			iron.data.Data.getSound("fire1.wav", function(sound:kha.Sound) {
 				soundFire1 = sound;
 			});
-
-			// TODO: Bug - 'parent to bone' does not produce correct transform..
-			// Offset gun manually for now to fit it in hand :(
-			object.transform.loc.x -= 22.0;
-			object.transform.loc.y += 30.0;
-			object.transform.loc.z += 1.0;
-			object.transform.buildMatrix();
 		});
 		
 		notifyOnUpdate(function() {
