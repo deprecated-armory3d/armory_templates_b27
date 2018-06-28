@@ -54,7 +54,7 @@ class FirstPersonController extends CameraController {
 		var kb = Input.getKeyboard();
 		
 		if (mouse.started() && !mouse.locked) mouse.lock();
-		else if (kb.started("esc") && mouse.locked) mouse.unlock();
+		else if (kb.started("escape") && mouse.locked) mouse.unlock();
 		
 		if (nextFrameRot != 0.0) {
 			var origin = object.getChild("CameraOrigin");
