@@ -28,7 +28,7 @@ def draw_props(layout):
     row.prop(rpdat, "rp_hdr")
     row.prop(rpdat, "rp_stereo")
     row = box.row()
-    row.prop(rpdat, 'arm_displacement')
+    row.prop(rpdat, 'arm_rp_displacement')
     row.prop(rpdat, 'arm_culling')
 
     layout.label('Shadows')
