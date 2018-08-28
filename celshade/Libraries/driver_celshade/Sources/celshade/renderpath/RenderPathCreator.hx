@@ -172,7 +172,7 @@ class RenderPathCreator {
 
 		#if rp_shadowmap
 		{
-			var faces = path.getLamp(path.currentLampIndex).data.raw.shadowmap_cube ? 6 : 1;
+			var faces = path.getLight(path.currentLightIndex).data.raw.shadowmap_cube ? 6 : 1;
 			for (i in 0...faces) {
 				if (faces > 1) path.currentFace = i;
 				path.setTarget(getShadowMap());
@@ -223,11 +223,11 @@ class RenderPathCreator {
 				path.setTarget("bufvola");
 				path.bindTarget("_main", "gbufferD");
 				bindShadowMap();
-				if (path.lampIsSun()) {
+				if (path.lightIsSun()) {
 					path.drawShader("shader_datas/volumetric_light_quad/volumetric_light_quad");
 				}
 				else {
-					path.drawLampVolume("shader_datas/volumetric_light/volumetric_light");
+					path.drawLightVolume("shader_datas/volumetric_light/volumetric_light");
 				}
 
 				path.setTarget("bufvolb");
@@ -413,7 +413,7 @@ class RenderPathCreator {
 	}
 
 	static function shadowMapName():String {
-		return path.getLamp(path.currentLampIndex).data.raw.shadowmap_cube ? "shadowMapCube" : "shadowMap";
+		return path.getLight(path.currentLightIndex).data.raw.shadowmap_cube ? "shadowMapCube" : "shadowMap";
 	}
 
 	static function getShadowMap():String {
@@ -421,9 +421,9 @@ class RenderPathCreator {
 		var rt = path.renderTargets.get(target);
 		// Create shadowmap on the fly
 		if (rt == null) {
-			if (path.getLamp(path.currentLampIndex).data.raw.shadowmap_cube) {
+			if (path.getLight(path.currentLightIndex).data.raw.shadowmap_cube) {
 				// Cubemap size
-				var size = Std.int(path.getLamp(path.currentLampIndex).data.raw.shadowmap_size);
+				var size = Std.int(path.getLight(path.currentLightIndex).data.raw.shadowmap_size);
 				var t = new RenderTargetRaw();
 				t.name = target;
 				t.width = size;
@@ -433,10 +433,10 @@ class RenderPathCreator {
 				rt = path.createRenderTarget(t);
 			}
 			else { // Non-cube sm
-				var sizew = path.getLamp(path.currentLampIndex).data.raw.shadowmap_size;
+				var sizew = path.getLight(path.currentLightIndex).data.raw.shadowmap_size;
 				var sizeh = sizew;
 				#if arm_csm // Cascades - atlas on x axis
-				sizew = sizeh * iron.object.LampObject.cascadeCount;
+				sizew = sizeh * iron.object.LightObject.cascadeCount;
 				#end
 				var t = new RenderTargetRaw();
 				t.name = target;

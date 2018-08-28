@@ -164,8 +164,8 @@ def make_mesh_pass(rpass):
     frag.ins = vert.outs
 
     frag.add_include('compiled.glsl')
-    frag.add_uniform('vec3 lightDir', '_lampDirection')
-    frag.add_uniform('vec3 lightColor', '_lampColor')
+    frag.add_uniform('vec3 lightDir', '_lightDirection')
+    frag.add_uniform('vec3 lightColor', '_lightColor')
     frag.add_uniform('float envmapStrength', link='_envmapStrength')
 
     frag.write('float visibility = 1.0;')
@@ -174,15 +174,15 @@ def make_mesh_pass(rpass):
     is_shadows = not '_NoShadows' in wrd.world_defs
 
     if is_shadows:
-        vert.add_out('vec4 lampPos')
-        vert.add_uniform('mat4 LWVP', '_biasLampWorldViewProjectionMatrix')
-        vert.write('lampPos = LWVP * spos;')
+        vert.add_out('vec4 lightPos')
+        vert.add_uniform('mat4 LWVP', '_biasLightWorldViewProjectionMatrix')
+        vert.write('lightPos = LWVP * spos;')
         frag.add_include('std/shadows.glsl')
         frag.add_uniform('sampler2D shadowMap')
-        frag.add_uniform('float shadowsBias', '_lampShadowsBias')
+        frag.add_uniform('float shadowsBias', '_lightShadowsBias')
         frag.add_uniform('bool receiveShadow')
-        frag.write('    if (receiveShadow && lampPos.w > 0.0) {')
-        frag.write('    vec3 lPos = lampPos.xyz / lampPos.w;')
+        frag.write('    if (receiveShadow && lightPos.w > 0.0) {')
+        frag.write('    vec3 lPos = lightPos.xyz / lightPos.w;')
 
         frag.write('    const vec2 smSize = shadowmapSize;')
         frag.write('    visibility *= PCF(shadowMap, lPos.xy, lPos.z - shadowsBias, smSize);')

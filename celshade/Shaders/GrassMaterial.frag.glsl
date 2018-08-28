@@ -1,7 +1,7 @@
 #version 450
 
 in vec3 color;
-in vec4 lampPos;
+in vec4 lightPos;
 
 out vec4 fragColor;
 
@@ -41,7 +41,7 @@ float PCF(const vec2 uv, const float compare, const vec2 smSize) {
 
 void main() {
 
-	vec3 lPos = lampPos.xyz / vec3(lampPos.w);
+	vec3 lPos = lightPos.xyz / vec3(lightPos.w);
     const float shadowsBias = 0.001;
 
     const vec2 shadowmapSize = vec2(16384, 16384);

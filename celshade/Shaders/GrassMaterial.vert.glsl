@@ -9,7 +9,7 @@ uniform mat4 LWVP;
 uniform float time;
 
 out vec3 color;
-out vec4 lampPos;
+out vec4 lightPos;
 
 void main() {
 
@@ -20,7 +20,7 @@ void main() {
 	mPos.x += (sin(time * 2.0 + cos(mPos.x / 2))) * ((pos.z + 0.3) / 8.0);
 	mPos.y += (cos(time * 2.0 + sin(mPos.x / 2))) * ((pos.z + 0.3) / 16.0);
 
-	lampPos = LWVP * mPos;
+	lightPos = LWVP * mPos;
 	gl_Position = WVP * mPos;
 
 	// Color

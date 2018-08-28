@@ -11,7 +11,7 @@
                             "type": "mat4"
                         },
                         {
-                            "link": "_biasLampWorldViewProjectionMatrix",
+                            "link": "_biasLightWorldViewProjectionMatrix",
                             "name": "LWVP",
                             "type": "mat4"
                         },
