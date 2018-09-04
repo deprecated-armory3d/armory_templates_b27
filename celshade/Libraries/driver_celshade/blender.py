@@ -306,6 +306,8 @@ def make_rpath():
                 assets.add_embedded_data('luttexture.jpg')
             if '_CDOF' in wrd.compo_defs or '_CFXAA' in wrd.compo_defs or '_CSharpen' in wrd.compo_defs:
                 wrd.compo_defs += '_CTexStep'
+            if '_CDOF' in wrd.compo_defs or '_CFog' in wrd.compo_defs or '_CGlare' in wrd.compo_defs:
+                wrd.compo_defs += '_CCameraProj'
             assets.add_shader_pass('compositor_pass')
         else:
             assets.add_shader_pass('copy_pass')
