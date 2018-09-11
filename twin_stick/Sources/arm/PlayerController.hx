@@ -10,7 +10,7 @@ import armory.trait.physics.RigidBody;
 
 class PlayerController extends iron.Trait {
 
-#if (!arm_bullet)
+#if (!arm_physics)
 	public function new() { super(); }
 #else
 	
