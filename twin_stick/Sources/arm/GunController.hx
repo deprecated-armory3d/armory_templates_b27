@@ -15,10 +15,8 @@ class GunController extends Trait {
 #else
 
 	@prop
-	public var fireFreq = 0.2;
-	var projectileRef:String;
+	public var fireFreq = 0.15;
 	var firePoint:Transform;
-	var fireStrength = 15;
 	var lastFire = 0.0;
 	var soundFire0:kha.Sound = null;
 	var soundFire1:kha.Sound = null;
@@ -55,7 +53,7 @@ class GunController extends Trait {
 			var rb:RigidBody = o.getTrait(RigidBody);
 			rb.syncTransform();
 			var look = object.transform.look().normalize();
-			rb.setLinearVelocity(look.x * fireStrength, look.y * fireStrength, look.z * fireStrength);
+			rb.setLinearVelocity(look.x * 15, look.y * 15, look.z * 15);
 			// Remove projectile after a period of time
 			kha.Scheduler.addTimeTask(o.remove, 10);
 		});
