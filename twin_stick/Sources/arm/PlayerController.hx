@@ -38,20 +38,24 @@ class PlayerController extends iron.Trait {
 	}
 
 	function init() {
+		// Get input devices
 		mouse = Input.getMouse();
 		keyboard = Input.getKeyboard();
 		gamepad = Input.getGamepad(0);
 
+		// Store references
 		body = object.getTrait(RigidBody);
 		armature = object.getChild("Armature");
 		anim = cast armature.children[0].animation;
 		lastLook = armature.transform.look().normalize();
 
+		// Load sounds
 		iron.data.Data.getSound("step0.wav", function(sound:kha.Sound) { soundStep0 = sound; });
 		iron.data.Data.getSound("step1.wav", function(sound:kha.Sound) { soundStep1 = sound; });
 	}
 
 	function update() {
+		// Movement
 		dir.set(0, 0, 0);
 		if (keyboard.down("w")) dir.y = 1.0;
 		if (keyboard.down("s")) dir.y = -1.0;
@@ -93,9 +97,9 @@ class PlayerController extends iron.Trait {
 	}
 
 	function updateAnim() {
-
 		var look = armature.transform.look().normalize();
 
+		// Move
 		if (dir.length() > 0) {
 			var action = "";
 			// Angle from look direction to move direction
@@ -109,15 +113,19 @@ class PlayerController extends iron.Trait {
 			else action = "back";
 
 			setState(action, 1.0);
+
+			// Step sounds
 			stepTime += Time.delta;
 			if (stepTime > 0.3) {
 				stepTime = 0;
 				Audio.play(Std.random(2) == 0 ? soundStep0 : soundStep1);
 			}
 		}
+		// Shoot
 		else if (mouse.down("left") || (gamepad != null && gamepad.down("r2") > 0.0)) {
 			setState("fire", 2.0);
 		}
+		// Idle
 		else {
 			var angle = getAngle(look, lastLook);
 			if (Math.abs(angle) > 0.02) {

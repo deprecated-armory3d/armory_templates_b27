@@ -35,9 +35,10 @@ class GunController extends Trait {
 		
 		notifyOnUpdate(function() {
 			lastFire += Time.delta;
-
 			if (lastFire > fireFreq) {
-				if (mouse.down("left") || (gamepad != null && gamepad.down("r2") > 0.0)) shoot();
+				if (mouse.down("left") || (gamepad != null && gamepad.down("r2") > 0.0)) {
+					shoot();
+				}
 			}
 		});
 	}
@@ -58,6 +59,7 @@ class GunController extends Trait {
 			kha.Scheduler.addTimeTask(o.remove, 10);
 		});
 
+		// Play sound
 		Audio.play(Std.random(3) == 0 ? soundFire1 : soundFire0);
 		lastFire = 0.0;
 	}
