@@ -13,9 +13,6 @@ class PlayerController extends iron.Trait {
 #if (!arm_physics)
 	public function new() { super(); }
 #else
-	
-	var soundStep0:kha.Sound = null;
-	var soundStep1:kha.Sound = null;
 
 	var mouse:Mouse = null;
 	var keyboard:Keyboard = null;
@@ -30,6 +27,11 @@ class PlayerController extends iron.Trait {
 	var lastDir = new Vec4();
 	var lastLook:Vec4;
 	var state = "idle";
+
+	var soundStep0:kha.Sound = null;
+	var soundStep1:kha.Sound = null;
+	var soundSword0:kha.Sound = null;
+	var soundSword1:kha.Sound = null;
 
 	public function new() {
 		super();
@@ -51,6 +53,8 @@ class PlayerController extends iron.Trait {
 		// Load sounds
 		iron.data.Data.getSound("step0.wav", function(sound:kha.Sound) { soundStep0 = sound; });
 		iron.data.Data.getSound("step1.wav", function(sound:kha.Sound) { soundStep1 = sound; });
+		iron.data.Data.getSound("sword0.wav", function(sound:kha.Sound) { soundSword0 = sound; });
+		iron.data.Data.getSound("sword1.wav", function(sound:kha.Sound) { soundSword1 = sound; });
 	}
 
 	function update() {
@@ -93,7 +97,11 @@ class PlayerController extends iron.Trait {
 		// Slash
 		else if (state == "idle") {
 			if (mouse.down("left") || (gamepad != null && gamepad.down("r2") > 0.0)) {
-				setState(Std.random(2) == 0 ? "slash" : "slash2", 1.5, 0.0, function() { setState("idle", 1.0, 0.0); });
+				var r = Std.random(2);
+				setState(r == 0 ? "slash" : "slash2", 1.5, 0.0, function() { setState("idle", 1.0, 0.0); });
+				iron.system.Tween.timer(0.3, function() {
+					Audio.play(r == 0 ? soundSword0 : soundSword1);
+				});
 			}
 		} 
 		// Idle
