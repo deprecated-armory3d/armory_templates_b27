@@ -128,11 +128,11 @@ class PlayerController extends iron.Trait {
 		// Idle
 		else {
 			var angle = getAngle(look, lastLook);
-			if (Math.abs(angle) > 0.02) {
+			if (Math.abs(angle) > 0.01) {
 				setState("turn", angle > 0 ? 1 : -1, 0);
 				turnTime = 0;
 			}
-			else if (turnTime > 0.1){
+			else if (turnTime > 0.25){
 				setState("idle", 2.0);
 			}
 			else turnTime += Time.delta;
