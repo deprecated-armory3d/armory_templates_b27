@@ -183,9 +183,13 @@ class FirstPersonController extends CameraController {
 		if (!body.ready) return;
 
 		if (jump) {
-			body.applyImpulse(new Vec4(0, 0, 16));
-			jump = false;
+			if (time >= 0.4){
+				body.applyImpulse(new Vec4(0, 0, 16));
+				time = 0;
+				jump = false;
+			}
 		}
+		time += Time.delta;
 
 		// Move
 		dir.set(0, 0, 0);
