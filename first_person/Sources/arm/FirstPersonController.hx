@@ -178,14 +178,19 @@ class FirstPersonController extends CameraController {
 	var speed = 1.0;
 	var dir = new Vec4();
 	var state = "idle";
+	var time = Time.delta;
 
 	function update() {
 		if (!body.ready) return;
 
 		if (jump) {
-			body.applyImpulse(new Vec4(0, 0, 16));
-			jump = false;
+			if (time >= 0.4){
+				body.applyImpulse(new Vec4(0, 0, 16));
+				time = 0;
+				jump = false;
+			}
 		}
+		time += Time.delta;
 
 		// Move
 		dir.set(0, 0, 0);
