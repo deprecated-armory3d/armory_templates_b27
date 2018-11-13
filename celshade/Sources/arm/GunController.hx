@@ -18,20 +18,17 @@ class GunController extends Trait {
 	@prop
 	public var fireFreq = 0.2;
 
-	var projectileRef:String;
 	var firePoint:Transform;
 	var fireStrength = 25;
 	var lastFire = 0.0;
 	var soundFire0:kha.Sound = null;
 	var soundFire1:kha.Sound = null;
 
-	public function new(projectileRef:String, firePointRef:String) {
+	public function new() {
 		super();
-
-		this.projectileRef = projectileRef;
 		
 		notifyOnInit(function() {
-			firePoint = object.getChild(firePointRef).transform;
+			firePoint = object.getChild("ProjectileSpawn").transform;
 
 			iron.data.Data.getSound("fire0.wav", function(sound:kha.Sound) {
 				soundFire0 = sound;
@@ -55,7 +52,7 @@ class GunController extends Trait {
 
 	function shoot() {
 		// Spawn projectile
-		iron.Scene.active.spawnObject(projectileRef, null, function(o:Object) {
+		iron.Scene.active.spawnObject("Projectile", null, function(o:Object) {
 			o.transform.loc.x = firePoint.worldx();
 			o.transform.loc.y = firePoint.worldy();
 			o.transform.loc.z = firePoint.worldz();
